@@ -1,3 +1,28 @@
+# Release Notes - Version V0.5.4+update.13
+
+09/Dec/25
+
+## New Features
+
+<div style='margin-left:30px;'>
+
+* Removed the recontacting option from the acribis checks since it's deprecated with the new data
+  set description.
+
+</div> 
+
+## Improvements
+
+No improvements were part of this version.
+
+## Tasks
+
+No tasks were part of this version.
+
+## Bugs
+
+No bug fixes were part of this version.
+
 # Release Notes - Version V0.5.4+update.12
 
 01/Jul/25
