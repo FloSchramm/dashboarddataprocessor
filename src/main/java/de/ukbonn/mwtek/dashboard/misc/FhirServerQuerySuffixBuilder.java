@@ -44,7 +44,8 @@ public class FhirServerQuerySuffixBuilder implements QuerySuffixBuilder {
   private static final String COUNT_EQUALS = "&_count=";
   private static final String DELIMITER = ",";
   public static final String SUMMARY_COUNT = "&_summary=count";
-  public static final String DATE_GE = "&date=ge";
+  public static final String OBSERVATION_DATE_GE = "&date=ge";
+  public static final String CONDITION_DATE_GE = "&recorded-date=ge";
   public static final String CODE_PARAM = "code=";
   public static final String PRETTY_FALSE_PARAM = "&_pretty=false";
   // public static final String CLASS_IMP = "&class=IMP";
@@ -86,7 +87,7 @@ public class FhirServerQuerySuffixBuilder implements QuerySuffixBuilder {
 
         // Append the starting date filter for COVID observations
         if (dataRetrievalService.getFilterResourcesByDate())
-          suffixBuilder.append(DATE_GE).append(getStartingDate(COVID));
+          suffixBuilder.append(OBSERVATION_DATE_GE).append(getStartingDate(COVID));
       }
       case INFLUENZA -> {
         // Join Influenza PCR codes
@@ -97,7 +98,7 @@ public class FhirServerQuerySuffixBuilder implements QuerySuffixBuilder {
 
         // Append the starting date filter for Influenza observations
         if (dataRetrievalService.getFilterResourcesByDate())
-          suffixBuilder.append(DATE_GE).append(getStartingDate(INFLUENZA));
+          suffixBuilder.append(OBSERVATION_DATE_GE).append(getStartingDate(INFLUENZA));
       }
     }
     // Append additional fixed parameters
@@ -131,7 +132,7 @@ public class FhirServerQuerySuffixBuilder implements QuerySuffixBuilder {
 
         // Append the starting date filter for COVID conditions
         if (dataRetrievalService.getFilterResourcesByDate())
-          suffixBuilder.append(DATE_GE).append(getStartingDate(COVID));
+          suffixBuilder.append(CONDITION_DATE_GE).append(getStartingDate(COVID));
       }
       case INFLUENZA -> {
         // Join Influenza ICD codes
@@ -140,7 +141,7 @@ public class FhirServerQuerySuffixBuilder implements QuerySuffixBuilder {
 
         // Append the starting date filter for Influenza conditions
         if (dataRetrievalService.getFilterResourcesByDate())
-          suffixBuilder.append(DATE_GE).append(getStartingDate(INFLUENZA));
+          suffixBuilder.append(CONDITION_DATE_GE).append(getStartingDate(INFLUENZA));
       }
       case KIDS_RADAR -> {
         // Join KidsRadar ICD codes
@@ -262,13 +263,13 @@ public class FhirServerQuerySuffixBuilder implements QuerySuffixBuilder {
     if (dataRetrievalService.getFilterResourcesByDate()) {
       switch (dataItemContext) {
         case COVID ->
-            suffixBuilder.append(DATE_GE).append(getStartingDate(COVID)).append(MIDNIGHT_TS);
+            suffixBuilder.append(OBSERVATION_DATE_GE).append(getStartingDate(COVID)).append(MIDNIGHT_TS);
         case INFLUENZA ->
-            suffixBuilder.append(DATE_GE).append(getStartingDate(INFLUENZA)).append(MIDNIGHT_TS);
+            suffixBuilder.append(OBSERVATION_DATE_GE).append(getStartingDate(INFLUENZA)).append(MIDNIGHT_TS);
         case KIDS_RADAR ->
-            suffixBuilder.append(DATE_GE).append(getStartingDate(KIDS_RADAR)).append(MIDNIGHT_TS);
+            suffixBuilder.append(OBSERVATION_DATE_GE).append(getStartingDate(KIDS_RADAR)).append(MIDNIGHT_TS);
         case ACRIBIS ->
-            suffixBuilder.append(DATE_GE).append(individualDateString).append(MIDNIGHT_TS);
+            suffixBuilder.append(OBSERVATION_DATE_GE).append(individualDateString).append(MIDNIGHT_TS);
       }
     }
     // Filtering of case class will be done in post-processing since it's way faster
@@ -406,7 +407,7 @@ public class FhirServerQuerySuffixBuilder implements QuerySuffixBuilder {
         + CONSENT_CATEGORY_SYSTEM
         + PIPE
         + CONSENT_CATEGORY_CODE
-        + DATE_GE
+        + OBSERVATION_DATE_GE
         + getStartingDate(ACRIBIS);
   }
 
